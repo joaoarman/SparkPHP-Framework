@@ -1,0 +1,12 @@
+# Habilita o uso do .htaccess
+RewriteEngine On
+
+# Define o diretório base (se o projeto não estiver na raiz do domínio, ajuste o caminho)
+RewriteBase /
+
+# Ignora arquivos e diretórios reais
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redireciona todas as requisições para o index.php
+RewriteRule ^(.*)$ index.php [L,QSA]
