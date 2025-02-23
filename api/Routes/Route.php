@@ -1,7 +1,7 @@
 <?php
 
 namespace Api\Routes;
-
+use Api\Middlewares\AuthMiddleware;
 
 class Route {    
 
@@ -39,7 +39,18 @@ class Route {
         $pattern = "@^" . $pattern . "$@D";
 
         if(preg_match($pattern, $requestedURL, $matches)) {
-           
+            
+
+            if($isProtected) {
+                if(!AuthMiddleware::AuthValidate()) {
+                    http_response_code(404);
+                    header('Content-Type: application/json; charset=utf-8');
+                    echo json_encode(['error' => true, 'message' => 'Access denied', 'status' => 404]);
+                    exit;
+                }
+            }
+
+
             self::$found = true;
 
             $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
@@ -52,7 +63,9 @@ class Route {
             $controller = new $class($isProtected);
             $controller->$method($finalData);
 
-        } 
+        } else {
+            return;
+        }
     }
 
 }

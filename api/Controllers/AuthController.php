@@ -2,6 +2,7 @@
 
 namespace Api\Controllers;
 use Api\Services\AuthService;
+use Api\Helpers\Auth;
 use Exception;
 
 class AuthController extends Controller {
@@ -23,7 +24,7 @@ class AuthController extends Controller {
                 } else {
                     
                     $data = [
-                        'token' => $this->JWTCreate($userId)
+                        'token' => Auth::JWTCreate($userId)
                     ];
 
                     $this->sendResponse($data);
