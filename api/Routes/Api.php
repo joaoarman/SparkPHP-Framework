@@ -12,7 +12,7 @@ class Api {
         // Os Middlawares são feitos no Route.php
 
         // API Routes
-        Route::post('/userLogin', ['AuthController', 'userLogin'], $data, 0);
+        Route::get('/userLogin', ['AuthController', 'userLogin'], $data, 0);
         
         // When the received route is not defined. Return 404
         if(!Route::$found) {

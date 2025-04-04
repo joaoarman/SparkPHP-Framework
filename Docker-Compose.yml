@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  php:
+    build: .
+    container_name: php_container
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      XDEBUG_MODE: "debug"
+      XDEBUG_CONFIG: "client_host=host.docker.internal client_port=9003"
+    depends_on:
+      - mysql
+    networks:
+      - sparkphp-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - sparkphp-network
+
+volumes:
+  mysql-data:
+    name: ${PROJECT_DB_VOLUME_NAME}
+
+networks:
+  sparkphp-network:
+    driver: bridge

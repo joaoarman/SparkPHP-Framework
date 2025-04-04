@@ -10,13 +10,13 @@ class Connection
 
     public function __construct() {
         $DB_CONNECTION = Env::get('DB_CONNECTION');
-        $DB_HOST = Env::get('DB_HOST');
-        $DB_NAME = Env::get('DB_NAME');
-        $DB_USER = Env::get('DB_USER');
-        $DB_PASSWORD = Env::get('DB_PASSWORD');
+        $MYSQL_HOST = Env::get('MYSQL_HOST');
+        $MYSQL_DATABASE = Env::get('MYSQL_DATABASE');
+        $MYSQL_USER = Env::get('MYSQL_USER');
+        $MYSQL_PASSWORD = Env::get('MYSQL_PASSWORD');
 
         try {
-            $this->pdo = new PDO("$DB_CONNECTION:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+            $this->pdo = new PDO("$DB_CONNECTION:host=$MYSQL_HOST;dbname=$MYSQL_DATABASE", $MYSQL_USER, $MYSQL_PASSWORD);
         } catch(Exception $e) {
             echo "Erro de conexão (Arquivo: connection.php) <br><br> " . $e->getMessage();
             exit();

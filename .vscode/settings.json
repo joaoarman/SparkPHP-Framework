@@ -1,0 +1,5 @@
+{
+   "files.exclude": {
+        "**/{.env.example,.htaccess,composer.json,composer.lock,Dockerfile,php.ini,vendor,.gitignore}": false
+    }
+}
